@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="popup.css">
+  </head>
+  <body>
+    <p>Please select your environment:</p>
+    <form name="select_env">
+      <input type="radio" id="sb" name="env" value="sb" checked>
+      <label for="sb">sb</label><br>
+      <input type="radio" id="prod" name="env" value="prod">
+      <label for="prod">prod</label><br>
+    </form>
+    <p>Your tag here:</p>
+    <input id="gen-tag" value="Generating" style="width: 180px;"> 
+    <br>
+    <button id="copy-tag">Copy tag</button>
+
+    
+    <script src="popup.js"></script>
+  </body>
+</html>
