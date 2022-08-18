@@ -13,10 +13,11 @@ setInterval(function() {
 }, 1000)()
 
 function genTag() {
+    const prefix = document.getElementById("prefix").value
     const dateTimeStr = genDatetime()
-    let env = document.querySelector('input[name="env"]:checked').value
+    const env = document.querySelector('input[name="env"]:checked').value
     const genTag = document.getElementById("gen-tag")
-    genTag.value = "v3.0.0-" + dateTimeStr + "-" + env
+    genTag.value = prefix + "-" + dateTimeStr + "-" + env
 }
 
 function copyTag() {

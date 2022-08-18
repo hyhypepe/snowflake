@@ -1,8 +1,50 @@
 #copy-tag {
     width: 100px;
     height: 20px;
-    margin: 50px;
+    margin: 20px;
     align-items: center;
+}
+
+.wrapper-class input[type="radio"] {
+    width: 15px;
+}
+  
+.wrapper-class label {
+    display: inline;
+    margin-left: 5px;
+}
+
+.radio-toolbar {
+    margin: 0px;
+}
+
+.radio-toolbar input[type="radio"] {
+    opacity: 0;
+    position: fixed;
+    width: 0;
+}
+
+.radio-toolbar label {
+    display: inline-block;
+    background-color: #ddd;
+    padding: 10px 20px;
+    font-family: sans-serif, Arial;
+    font-size: 16px;
+    border: 2px solid #444;
+    border-radius: 4px;
+}
+
+.radio-toolbar label:hover {
+    background-color: #dfd;
+}
+
+.radio-toolbar input[type="radio"]:focus + label {
+    border: 2px dashed #444;
+}
+
+.radio-toolbar input[type="radio"]:checked + label {
+    background-color: #bfb;
+    border-color: #4c4;
 }
 
 #notification {
@@ -18,6 +60,7 @@
     background: rgba(0, 0, 0, 0.5);
     color: white;
     opacity: 0;
+    pointer-events: none;
 }
 
 #notification.fadein {
