@@ -23,7 +23,12 @@ function copyTag() {
     var copyText = document.getElementById("gen-tag");
     copyText.select();
     copyText.setSelectionRange(0, 99999); /* For mobile devices */
-    navigator.clipboard.writeText(copyText.value);
+    try {
+        //copy text
+        document.execCommand('copy');
+    } catch(err) {
+        console.log("Not able to copy ");
+    }
     alert("Copied the text: " + copyText.value);
 } 
 
