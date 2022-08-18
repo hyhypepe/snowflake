@@ -29,7 +29,11 @@ function copyTag() {
     } catch(err) {
         console.log("Not able to copy ");
     }
-    alert("Copied the text: " + copyText.value);
+    // alert("Copied the text: " + copyText.value);
+    document.getElementById("notification").className = "fadein";
+    setTimeout(function() {
+        document.getElementById("notification").className = "fadeout";
+    }, 1000)
 } 
 
 function genDatetime() {
@@ -41,6 +45,5 @@ function genDatetime() {
             ("0" + m.getHours()).slice(-2) +
             ("0" + m.getMinutes()).slice(-2)
 
-    console.log(dateTimeStr);
     return dateTimeStr
 }
