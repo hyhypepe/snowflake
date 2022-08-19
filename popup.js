@@ -36,16 +36,16 @@ function copyTag() {
     resultInput.select();
     resultInput.setSelectionRange(0, 99999); /* For mobile devices */
     try {
-        //copy text
         document.execCommand('copy');
+        
+        document.getElementById("notification").className = "fadein";
+        setTimeout(function() {
+            document.getElementById("notification").className = "fadeout";
+        }, 1000);
     } catch(err) {
         console.log("Not able to copy ");
+        alert("Copied failed");
     }
-    // alert("Copied the text: " + copyText.value);
-    document.getElementById("notification").className = "fadein";
-    setTimeout(function() {
-        document.getElementById("notification").className = "fadeout";
-    }, 1000)
 } 
 
 function genDatetime() {
