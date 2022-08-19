@@ -17,5 +17,8 @@
         "32": "/images/icon.png",
         "48": "/images/icon.png",
         "128": "/images/icon.png"
-      }
+    },
+    "permissions": [
+        "storage"
+    ]
   }     

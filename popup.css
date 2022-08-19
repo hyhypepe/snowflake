@@ -1,8 +1,8 @@
 #copy-tag {
     width: 100px;
-    height: 20px;
+    height: 40px;
     margin: 20px;
-    align-items: center;
+    left:50%;
 }
 
 .wrapper-class input[type="radio"] {
