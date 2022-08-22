@@ -2,6 +2,7 @@ const prefixInput = document.getElementById("prefix")
 const radios = document.querySelectorAll('input[type=radio][name="env"]');
 const copyBtn = document.getElementById('copy-tag');
 const resultInput = document.getElementById("result")
+const notification = document.getElementById("notification")
 
 Array.prototype.forEach.call(radios, function(radio) {
    radio.addEventListener('change', genTag);
@@ -38,9 +39,9 @@ function copyTag() {
     try {
         document.execCommand('copy');
         
-        document.getElementById("notification").className = "fadein";
+        notification.className = "fadein";
         setTimeout(function() {
-            document.getElementById("notification").className = "fadeout";
+            notification.className = "fadeout";
         }, 1000);
     } catch(err) {
         console.log("Not able to copy ");
