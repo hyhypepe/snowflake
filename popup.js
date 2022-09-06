@@ -4,25 +4,25 @@ const copyBtn = document.getElementById('copy-tag');
 const resultInput = document.getElementById("result")
 const notification = document.getElementById("notification")
 
-Array.prototype.forEach.call(radios, function(radio) {
-   radio.addEventListener('change', genTag);
+Array.prototype.forEach.call(radios, function (radio) {
+    radio.addEventListener('change', genTag);
 });
 copyBtn.addEventListener("click", copyTag);
-prefixInput.addEventListener("change", function() {
-    chrome.storage.local.set({'prefix': prefixInput.value}, function() {
+prefixInput.addEventListener("change", function () {
+    chrome.storage.local.set({ 'prefix': prefixInput.value }, function () {
     })
 })
 
-chrome.storage.local.get('prefix', function(result) {
+chrome.storage.local.get('prefix', function (result) {
     if (result.prefix) {
-       prefixInput.value = result.prefix
-       genTag()
+        prefixInput.value = result.prefix
+        genTag()
     }
 });
 
 genTag()
 
-setInterval(function() {
+setInterval(function () {
     genTag()
 }, 1000)()
 
@@ -38,25 +38,24 @@ function copyTag() {
     resultInput.setSelectionRange(0, 99999); /* For mobile devices */
     try {
         document.execCommand('copy');
-        
         notification.className = "fadein";
-        setTimeout(function() {
+        setTimeout(function () {
             notification.className = "fadeout";
         }, 1000);
-    } catch(err) {
+    } catch (err) {
         console.log("Not able to copy ");
         alert("Copied failed");
     }
-} 
+}
 
 function genDatetime() {
     var m = new Date();
     var dateTimeStr =
-            m.getFullYear() +
-            ("0" + (m.getMonth()+1)).slice(-2) +
-            ("0" + m.getDate()).slice(-2) +
-            ("0" + m.getHours()).slice(-2) +
-            ("0" + m.getMinutes()).slice(-2) +
-            ("0" + m.getSeconds()).slice(-2)
+        m.getFullYear() +
+        ("0" + (m.getMonth() + 1)).slice(-2) +
+        ("0" + m.getDate()).slice(-2) +
+        ("0" + m.getHours()).slice(-2) +
+        ("0" + m.getMinutes()).slice(-2) +
+        ("0" + m.getSeconds()).slice(-2)
     return dateTimeStr
 }
