@@ -20,5 +20,11 @@
     },
     "permissions": [
         "storage"
-    ]   
+    ],
+    "content_scripts": [
+        {
+          "matches": ["https://qcgateway.zalopay.vn/*"],
+          "js": ["zlp_gw_script.js"]
+        }
+      ]   
   }     
