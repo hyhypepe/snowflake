@@ -3,20 +3,30 @@ const radios = document.querySelectorAll('input[type=radio][name="env"]');
 const copyBtn = document.getElementById('copy-tag');
 const resultInput = document.getElementById("result")
 const notification = document.getElementById("notification")
+const enableDebugGateway = document.getElementById("enable-debug-gw")
 
 Array.prototype.forEach.call(radios, function (radio) {
     radio.addEventListener('change', genTag);
 });
 copyBtn.addEventListener("click", copyTag);
 prefixInput.addEventListener("change", function () {
-    chrome.storage.local.set({ 'prefix': prefixInput.value }, function () {
-    })
+    chrome.storage.local.set({ 'prefix': prefixInput.value }, function () {})
+})
+
+enableDebugGateway.addEventListener('change', function() {
+    chrome.storage.local.set({'enableDebugGW': this.checked }, function () {})
 })
 
 chrome.storage.local.get('prefix', function (result) {
     if (result.prefix) {
         prefixInput.value = result.prefix
         genTag()
+    }
+});
+
+chrome.storage.local.get('enableDebugGW', function (result) {
+    if (!result.enableDebugGW) {
+        enableDebugGateway.checked =false;
     }
 });
 

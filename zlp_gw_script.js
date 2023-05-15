@@ -1,7 +1,18 @@
-setInterval(() => {
+setInterval(async () => {
+    if (!await isEnableDebugGateway()) {
+        return;
+    }
     appendAutoFillBtn()
     appendRedirectToLocalBtn()
 }, 1000)
+
+function isEnableDebugGateway() {
+    return new Promise((resolve) => {
+        chrome.storage.local.get('enableDebugGW', function (result) {
+            resolve(result.enableDebugGW);
+        });
+    })
+}
 
 function appendAutoFillBtn() {
     var btn = document.createElement("BUTTON")
