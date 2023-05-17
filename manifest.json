@@ -1,7 +1,7 @@
 {
     "name": "Gen build tag",
     "description": "Gen build tag",
-    "version": "3.2.1",       
+    "version": "3.3.1",       
     "manifest_version": 3,
     "action": {
         "default_popup": "popup.html",
@@ -25,6 +25,7 @@
         {
           "matches": [
             "https://qcgateway.zalopay.vn/*",
+            "https://devgateway.zalopay.vn/*",
             "http://localhost:3000/*"
         ],
           "js": ["zlp_gw_script.js"]

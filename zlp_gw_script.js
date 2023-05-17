@@ -4,6 +4,7 @@ setInterval(async () => {
     }
     appendAutoFillBtn()
     appendRedirectToLocalBtn()
+    appendRedirectToDevBtn()
 }, 1000)
 
 function isEnableDebugGateway() {
@@ -53,8 +54,32 @@ function appendRedirectToLocalBtn() {
     if (!logoWrap) {
         return
     }
-    const redirectToLocalBtn = document.getElementById("redirect-to-local");
-    if (redirectToLocalBtn) {
+    const existingBtn = document.getElementById("redirect-to-local");
+    if (existingBtn) {
+        return
+    }
+    logoWrap.append(btn);
+}
+
+
+function appendRedirectToDevBtn() {
+    var btn = document.createElement("BUTTON")
+    var t = document.createTextNode("REDIRECT TO DEV");
+    btn.appendChild(t);
+    btn.addEventListener("click", onRedirectToDevClick);
+    btn.setAttribute("id", "redirect-to-dev");
+    btn.style.color = "white"
+    btn.style.backgroundColor = "red"
+    btn.style.width = "100%"
+    btn.style.height = "50px"
+    btn.style.fontSize = "15px"
+
+    const logoWrap = document.getElementsByClassName("logo-wrap")[0];
+    if (!logoWrap) {
+        return
+    }
+    const existingBtn = document.getElementById("redirect-to-dev");
+    if (existingBtn) {
         return
     }
     logoWrap.append(btn);
@@ -87,6 +112,15 @@ function onRedirectToLocalClick() {
     url = url.replace(window.location.hostname, 'localhost:3000');
     // Replace the protocol
     url = url.replace(/^https:/, 'http:');
+    // Update the location
+    window.location.href = url;
+}
+
+function onRedirectToDevClick() {
+    // Get the current URL
+    var url = window.location.href;
+    // Replace the hostname
+    url = url.replace(window.location.hostname, 'devgateway.zalopay.vn');
     // Update the location
     window.location.href = url;
 }
