@@ -1,7 +1,7 @@
 {
     "name": "Gen build tag",
     "description": "Gen build tag",
-    "version": "3.3.1",       
+    "version": "3.4.0",       
     "manifest_version": 3,
     "action": {
         "default_popup": "popup.html",
