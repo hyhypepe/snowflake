@@ -12,19 +12,19 @@ function appendSbTagBtn() {
     btn.setAttribute("id", "tag-sb");
     btn.style.color = "white"
     btn.style.backgroundColor = "red"
-    btn.style.width = "100px"
-    btn.style.height = "30px"
+    btn.style.width = "300px"
+    btn.style.height = "50px"
     btn.style.fontSize = "15px"
 
-    const tagEle = document.getElementById("tag_name");
-    if (!tagEle) {
+    const pageTitle = document.getElementsByClassName("page-title")[0];
+    if (!pageTitle) {
         return
     }
     const existBtn = document.getElementById("tag-sb");
     if (existBtn) {
         return
     }
-    tagEle.parentElement.append(btn);
+    pageTitle.append(btn);
     console.log("add tag sb done")
 }
 
@@ -36,19 +36,19 @@ function appendProdTagBtn() {
     btn.setAttribute("id", "tag-prod");
     btn.style.color = "white"
     btn.style.backgroundColor = "red"
-    btn.style.width = "100px"
-    btn.style.height = "30px"
+    btn.style.width = "300px"
+    btn.style.height = "50px"
     btn.style.fontSize = "15px"
 
-    const tagEle = document.getElementById("tag_name");
-    if (!tagEle) {
+    const pageTitle = document.getElementsByClassName("page-title")[0];
+    if (!pageTitle) {
         return
     }
     const existBtn = document.getElementById("tag-prod");
     if (existBtn) {
         return
     }
-    tagEle.parentElement.append(btn);
+    pageTitle.append(btn);
     console.log("add tag prod done")
 }
 
@@ -61,7 +61,7 @@ function genTag(env) {
     if (!tagEle) {
         return
     }
-    tagEle.value = value
+    simulateClickAndFill(tagEle, value)
 }
 
 function genDatetime() {
@@ -74,4 +74,13 @@ function genDatetime() {
         ("0" + m.getMinutes()).slice(-2) +
         ("0" + m.getSeconds()).slice(-2)
     return dateTimeStr
+}
+
+function simulateClickAndFill(element, value) {
+    element.value = value;
+    element.dispatchEvent(new Event('input', {
+        view: window,
+        bubbles: true,
+        cancelable: true
+    }))
 }
