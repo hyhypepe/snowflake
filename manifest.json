@@ -29,6 +29,12 @@
             "http://localhost:3000/*"
         ],
           "js": ["zlp_gw_script.js"]
+        },
+        {
+          "matches": [
+            "https://gitlab.zalopay.vn/*"
+        ],
+          "js": ["zlp_gitlab_script.js"]
         }
       ]   
   }     
