@@ -1,8 +1,7 @@
-
-setInterval(async () => {
+window.addEventListener("load", function() {
     appendSbTagBtn()
     appendProdTagBtn()
-}, 1000)
+})
 
 function appendSbTagBtn() {
     var btn = document.createElement("BUTTON")
