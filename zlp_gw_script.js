@@ -2,10 +2,7 @@ setInterval(async () => {
     if (!await isEnableDebugGateway()) {
         return;
     }
-    appendAutoFillSuccessBtn()
-    if (isAtmPage()) {
-        appendAutoFillFailBtn()
-    }
+    appendAutoFillBtn()
     appendRedirectToLocalBtn()
     appendRedirectToDevBtn()
 }, 1000)
@@ -18,39 +15,11 @@ function isEnableDebugGateway() {
     })
 }
 
-function appendAutoFillSuccessBtn() {
+function appendAutoFillBtn() {
     var btn = document.createElement("BUTTON")
-    var t = document.createTextNode("AUTO FILL SUCCESS");
+    var t = document.createTextNode("AUTO FILL");
     btn.appendChild(t);
-    btn.addEventListener("click", function() {
-        onAutoFillClick(true)
-    });
-    btn.setAttribute("id", "autofill");
-    btn.style.color = "white"
-    btn.style.backgroundColor = "red"
-    btn.style.width = "100%"
-    btn.style.height = "50px"
-    btn.style.fontSize = "15px"
-
-    const cardField = document.getElementsByClassName("card-field-wrap")[0];
-    if (!cardField) {
-        return
-    }
-    const autofill = document.getElementById("autofill");
-    if (autofill) {
-        return
-    }
-    cardField.prepend(btn);
-}
-
-
-function appendAutoFillFailBtn() {
-    var btn = document.createElement("BUTTON")
-    var t = document.createTextNode("AUTO FILL FAIL");
-    btn.appendChild(t);
-    btn.addEventListener("click", function() {
-        onAutoFillClick(false)
-    });
+    btn.addEventListener("click", onAutoFillClick);
     btn.setAttribute("id", "autofill");
     btn.style.color = "white"
     btn.style.backgroundColor = "red"
@@ -116,8 +85,8 @@ function appendRedirectToDevBtn() {
     logoWrap.append(btn);
 }
 
-function onAutoFillClick(isSuccess) {
-    if (isAtmPage()) {
+function onAutoFillClick() {
+    if (document.getElementsByClassName("bank-name-logo visa-master-jcb").length > 0) {
         const cardNumber = document.getElementsByClassName("form-group card-number")[0].getElementsByClassName("form-control")[0];
         simulateClickAndFill(cardNumber, "4111111111111111");
         const ownerName = document.getElementsByClassName("form-group owner-name")[0].getElementsByClassName("form-control")[0];
@@ -127,29 +96,13 @@ function onAutoFillClick(isSuccess) {
         const cvv = document.getElementsByClassName("form-group cvv")[0].getElementsByClassName("form-control")[0];
         simulateClickAndFill(cvv, "123");
     } else {
-        let cardNumberValue;
-        let ownerNameValue;
-        let expireDateValue;
-        if (isSuccess) {
-            cardNumberValue = "9704540000000062";
-            ownerNameValue = "NGUYEN VAN A";
-            expireDateValue = "1018";
-        } else {
-            cardNumberValue = "9704540000000013";
-            ownerNameValue = "NGUYEN VAN A";
-            expireDateValue = "1018";
-        }
         const cardNumber = document.getElementsByClassName("form-group card-number")[0].getElementsByClassName("form-control")[0]
-        simulateClickAndFill(cardNumber, cardNumberValue);
+        simulateClickAndFill(cardNumber, "9704540000000062");
         const ownerName = document.getElementsByClassName("form-group owner-name")[0].getElementsByClassName("form-control")[0]
-        simulateClickAndFill(ownerName, ownerNameValue);
+        simulateClickAndFill(ownerName, "NGUYEN VAN A");
         const expireDate = document.getElementsByClassName("form-group expire-date")[0].getElementsByClassName("form-control")[0]
-        simulateClickAndFill(expireDate, expireDate);
+        simulateClickAndFill(expireDate, "10/18");
     }
-}
-
-function isAtmPage() {
-    return document.getElementsByClassName("bank-name-logo visa-master-jcb").length > 0;
 }
 
 function onRedirectToLocalClick() {
