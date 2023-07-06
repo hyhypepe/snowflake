@@ -24,10 +24,16 @@ chrome.storage.local.get('prefix', function (result) {
     }
 });
 
-chrome.storage.local.get('enableDebugGW', function (result) {
-    if (!result.enableDebugGW) {
-        enableDebugGateway.checked =false;
+const enableDebugGW = "enableDebugGW"
+chrome.storage.local.get(enableDebugGW, function (result) {
+    const isItemNotInStorage = !(enableDebugGW in result);
+    console.log("isItemNotInStorage", isItemNotInStorage)
+    if (isItemNotInStorage) {
+        chrome.storage.local.set({enableDebugGW: true }, function () {})
+        enableDebugGateway.checked = true;
+        return
     }
+    enableDebugGateway.checked = result.enableDebugGW;
 });
 
 genTag()
