@@ -3,8 +3,8 @@ setInterval(async () => {
         return;
     }
     appendAutoFillBtn()
-    appendRedirectBtn("redirect-to-local", redirectToLocalClick)
-    appendRedirectBtn("redirect-to-dev", redirectToDevClick)
+    appendRedirectBtn("redirect-to-local", "REDIRECT TO LOCAL", redirectToLocalClick)
+    appendRedirectBtn("redirect-to-dev", "REDIRECT TO DEV", redirectToDevClick)
 }, 1000)
 
 function isEnableDebugGateway() {
@@ -52,9 +52,9 @@ function appendAutoFillBtn() {
     cardField.prepend(btn);
 }
 
-function appendRedirectBtn(id, redirectFunc) {
+function appendRedirectBtn(id, title, redirectFunc) {
     var btn = document.createElement("BUTTON")
-    var t = document.createTextNode("REDIRECT TO DEV");
+    var t = document.createTextNode(title);
     btn.appendChild(t);
     btn.addEventListener("click", redirectFunc);
     btn.setAttribute("id", id);
