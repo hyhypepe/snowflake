@@ -12,8 +12,9 @@ function appendSbTagBtn() {
     btn.style.color = "white"
     btn.style.backgroundColor = "red"
     btn.style.width = "300px"
-    btn.style.height = "50px"
+    btn.style.height = "30px"
     btn.style.fontSize = "15px"
+    btn.style.fontWeight = "bold"
 
     const pageTitle = document.getElementsByClassName("page-title")[0];
     if (!pageTitle) {
@@ -36,8 +37,9 @@ function appendProdTagBtn() {
     btn.style.color = "white"
     btn.style.backgroundColor = "red"
     btn.style.width = "300px"
-    btn.style.height = "50px"
+    btn.style.height = "30px"
     btn.style.fontSize = "15px"
+    btn.style.fontWeight = "bold"
 
     const pageTitle = document.getElementsByClassName("page-title")[0];
     if (!pageTitle) {

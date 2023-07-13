@@ -1,10 +1,16 @@
+window.addEventListener("load", async function() {
+    if (!await isEnableDebugGateway()) {
+        return;
+    }
+    appendRedirectBtn("redirect-to-local", "REDIRECT TO LOCAL", redirectToLocalClick)
+    appendRedirectBtn("redirect-to-dev", "REDIRECT TO DEV", redirectToDevClick)
+})
+
 setInterval(async () => {
     if (!await isEnableDebugGateway()) {
         return;
     }
     appendAutoFillBtn()
-    appendRedirectBtn("redirect-to-local", "REDIRECT TO LOCAL", redirectToLocalClick)
-    appendRedirectBtn("redirect-to-dev", "REDIRECT TO DEV", redirectToDevClick)
 }, 1000)
 
 function isEnableDebugGateway() {
@@ -33,8 +39,9 @@ function appendAutoFillBtn() {
     btn.style.color = "white"
     btn.style.backgroundColor = "red"
     btn.style.width = "100%"
-    btn.style.height = "50px"
+    btn.style.height = "30px"
     btn.style.fontSize = "15px"
+    btn.style.fontWeight = "bold"
 
     let cardField = null
     if (isGWV2()) {
@@ -60,24 +67,20 @@ function appendRedirectBtn(id, title, redirectFunc) {
     btn.setAttribute("id", id);
     btn.style.color = "white"
     btn.style.backgroundColor = "red"
-    btn.style.width = "100%"
-    btn.style.height = "50px"
+    btn.style.width = "50%"
+    btn.style.height = "30px"
     btn.style.fontSize = "15px"
-
-    let logoWrap = null
-    if (isGWV2()) {
-        logoWrap = findElementByTagAndPrefixClass("div", "header-logo_logo_wrap_");
-    } else {
-        logoWrap = document.getElementsByClassName("logo-wrap")[0];
-    }
-    if (!logoWrap) {
+    btn.style.fontWeight = "bold"
+    
+    let body = document.getElementsByTagName("body")[0]
+    if (!body) {
         return
     }
     const existingBtn = document.getElementById(id);
     if (existingBtn) {
         return
     }
-    logoWrap.append(btn);
+    body.prepend(btn);
 }
 
 function onAutoFillClick() {
