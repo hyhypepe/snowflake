@@ -4,6 +4,11 @@ window.addEventListener("load", async function() {
     }
     appendRedirectBtn("redirect-to-local", "REDIRECT TO LOCAL", redirectToLocalClick)
     appendRedirectBtn("redirect-to-dev", "REDIRECT TO DEV", redirectToDevClick)
+    if (isGWV2()) {
+        appendRedirectBtn("redirect-to-v1", "REDIRECT TO V1", redirectToV1Click)
+    } else {
+        appendRedirectBtn("redirect-to-v2", "REDIRECT TO V2", redirectToV2Click)
+    }
 })
 
 setInterval(async () => {
@@ -67,7 +72,7 @@ function appendRedirectBtn(id, title, redirectFunc) {
     btn.setAttribute("id", id);
     btn.style.color = "white"
     btn.style.backgroundColor = "red"
-    btn.style.width = "50%"
+    btn.style.width = "33.333%"
     btn.style.height = "30px"
     btn.style.fontSize = "15px"
     btn.style.fontWeight = "bold"
@@ -139,6 +144,24 @@ function redirectToDevClick() {
     var url = window.location.href;
     // Replace the hostname
     url = url.replace(window.location.hostname, 'devgateway.zalopay.vn');
+    // Update the location
+    window.location.href = url;
+}
+
+function redirectToV2Click() {
+    // Get the current URL
+    var url = window.location.href;
+    // Append the pathname
+    url = url.replace("/pay", "/pay/v2")
+    // Update the location
+    window.location.href = url;
+}
+
+function redirectToV1Click() {
+    // Get the current URL
+    var url = window.location.href;
+    // Append the pathname
+    url = url.replace("/pay/v2", "/pay")
     // Update the location
     window.location.href = url;
 }
