@@ -50,7 +50,7 @@ function appendAutoFillBtn() {
 
     let cardField = null
     if (isGWV2()) {
-        cardField = findElementByTagAndPrefixClass("div", "input_card_field_wrap_")
+        cardField = document.querySelector("[class*='input_card_field_wrap_']")
     } else {
         cardField = document.getElementsByClassName("card-field-wrap")[0];
     }
