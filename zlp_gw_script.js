@@ -149,21 +149,11 @@ function redirectToDevClick() {
 }
 
 function redirectToV2Click() {
-    // Get the current URL
-    var url = window.location.href;
-    // Append the pathname
-    url = url.replace("/pay", "/pay/v2")
-    // Update the location
-    window.location.href = url;
+    window.location.pathname = "/pay/v2";
 }
 
 function redirectToV1Click() {
-    // Get the current URL
-    var url = window.location.href;
-    // Append the pathname
-    url = url.replace("/pay/v2", "/pay")
-    // Update the location
-    window.location.href = url;
+    window.location.pathname = "/pay";
 }
 
 function simulateClickAndFill(element, value) {
