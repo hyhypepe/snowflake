@@ -100,12 +100,21 @@ function onAutoFillClick() {
             const cvv = findElementByTagAndPrefixClass("div", "cvv").getElementsByClassName("form-control")[0];
             simulateClickAndFill(cvv, "123");
         } else {
-            const cardNumber = findElementByTagAndPrefixClass("div", "input_card_number").getElementsByClassName("form-control")[0]
-            simulateClickAndFill(cardNumber, "9704540000000062");
-            const ownerName = findElementByTagAndPrefixClass("div", "input_owner_name").getElementsByClassName("form-control")[0]
-            simulateClickAndFill(ownerName, "NGUYEN VAN A");
-            const expireDate = findElementByTagAndPrefixClass("div", "input_expire_date").getElementsByClassName("form-control")[0]
-            simulateClickAndFill(expireDate, "10/18");
+            if (isSelectACBBank()) {
+                const cardNumber = findElementByTagAndPrefixClass("div", "input_card_number").getElementsByClassName("form-control")[0]
+                simulateClickAndFill(cardNumber, "9704160715835353");
+                const ownerName = findElementByTagAndPrefixClass("div", "input_owner_name").getElementsByClassName("form-control")[0]
+                simulateClickAndFill(ownerName, "NGUYEN VAN A");
+                const expireDate = findElementByTagAndPrefixClass("div", "input_expire_date").getElementsByClassName("form-control")[0]
+                simulateClickAndFill(expireDate, "10/18");
+            } else {
+                const cardNumber = findElementByTagAndPrefixClass("div", "input_card_number").getElementsByClassName("form-control")[0]
+                simulateClickAndFill(cardNumber, "9704540000000062");
+                const ownerName = findElementByTagAndPrefixClass("div", "input_owner_name").getElementsByClassName("form-control")[0]
+                simulateClickAndFill(ownerName, "NGUYEN VAN A");
+                const expireDate = findElementByTagAndPrefixClass("div", "input_expire_date").getElementsByClassName("form-control")[0]
+                simulateClickAndFill(expireDate, "10/18");
+            }
         }
     } else {
         if (document.getElementsByClassName("bank-name-logo visa-master-jcb").length > 0) {
@@ -118,14 +127,31 @@ function onAutoFillClick() {
             const cvv = document.getElementsByClassName("form-group cvv")[0].getElementsByClassName("form-control")[0];
             simulateClickAndFill(cvv, "123");
         } else {
-            const cardNumber = document.getElementsByClassName("form-group card-number")[0].getElementsByClassName("form-control")[0]
-            simulateClickAndFill(cardNumber, "9704540000000062");
-            const ownerName = document.getElementsByClassName("form-group owner-name")[0].getElementsByClassName("form-control")[0]
-            simulateClickAndFill(ownerName, "NGUYEN VAN A");
-            const expireDate = document.getElementsByClassName("form-group expire-date")[0].getElementsByClassName("form-control")[0]
-            simulateClickAndFill(expireDate, "10/18");
+            if (isSelectACBBank()) {
+                const cardNumber = document.getElementsByClassName("form-group card-number")[0].getElementsByClassName("form-control")[0]
+                simulateClickAndFill(cardNumber, "9704160715835353");
+                const ownerName = document.getElementsByClassName("form-group owner-name")[0].getElementsByClassName("form-control")[0]
+                simulateClickAndFill(ownerName, "NGUYEN VAN A");
+                const expireDate = document.getElementsByClassName("form-group expire-date")[0].getElementsByClassName("form-control")[0]
+                simulateClickAndFill(expireDate, "10/18");
+            } else {
+                const cardNumber = document.getElementsByClassName("form-group card-number")[0].getElementsByClassName("form-control")[0]
+                simulateClickAndFill(cardNumber, "9704540000000062");
+                const ownerName = document.getElementsByClassName("form-group owner-name")[0].getElementsByClassName("form-control")[0]
+                simulateClickAndFill(ownerName, "NGUYEN VAN A");
+                const expireDate = document.getElementsByClassName("form-group expire-date")[0].getElementsByClassName("form-control")[0]
+                simulateClickAndFill(expireDate, "10/18");
+            }
         }
     }
+}
+
+function isSelectACBBank() {
+    var bankNameEle = document.getElementsByClassName("bank-name")
+    if (bankNameEle && bankNameEle.length > 0 && bankNameEle[0].innerText === "ABC") {
+        return true
+    }
+    return false
 }
 
 function redirectToLocalClick() {
