@@ -148,7 +148,7 @@ function onAutoFillClick() {
 
 function isSelectACBBank() {
     var bankNameEle = document.getElementsByClassName("bank-name")
-    if (bankNameEle && bankNameEle.length > 0 && bankNameEle[0].innerText === "ABC") {
+    if (bankNameEle && bankNameEle.length > 0 && bankNameEle[0].innerText === "ACB") {
         return true
     }
     return false
