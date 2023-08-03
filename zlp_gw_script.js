@@ -91,57 +91,46 @@ function appendRedirectBtn(id, title, redirectFunc) {
 function onAutoFillClick() {
     if (isGWV2()) {
         if (window.location.href.indexOf("pay/v2/cc") != -1) {
-            const cardNumber = findElementByTagAndPrefixClass("div","input_card_number").getElementsByClassName("form-control")[0];
+            const cardNumber = document.querySelector("[class*='input_card_number']").getElementsByClassName("form-control")[0];
+            const ownerName = document.querySelector("[class*='owner-name']").getElementsByClassName("form-control")[0];
+            const expireDate = document.querySelector("[class*='expire-date']").getElementsByClassName("form-control")[0];    
             simulateClickAndFill(cardNumber, "4111111111111111");
-            const ownerName = findElementByTagAndPrefixClass("div","owner-name").getElementsByClassName("form-control")[0];
             simulateClickAndFill(ownerName, "NGUYEN VAN A");
-            const expireDate = findElementByTagAndPrefixClass("div", "expire-date").getElementsByClassName("form-control")[0];
             simulateClickAndFill(expireDate, "01/25");
-            const cvv = findElementByTagAndPrefixClass("div", "cvv").getElementsByClassName("form-control")[0];
+            const cvv = document.getElementsByClassName("cvv")[0].getElementsByClassName("form-control")[0];
             simulateClickAndFill(cvv, "123");
         } else {
+            const cardNumber = document.querySelector("[class*='input_card_number']").getElementsByClassName("form-control")[0];
+            const ownerName = document.querySelector("[class*='input_owner_name']").getElementsByClassName("form-control")[0];
+            const expireDate = document.querySelector("[class*='input_expire_date']").getElementsByClassName("form-control")[0];
+            
             if (isSelectACBBankV2()) {
-                const cardNumber = findElementByTagAndPrefixClass("div", "input_card_number").getElementsByClassName("form-control")[0]
                 simulateClickAndFill(cardNumber, "9704160715835353");
-                const ownerName = findElementByTagAndPrefixClass("div", "input_owner_name").getElementsByClassName("form-control")[0]
-                simulateClickAndFill(ownerName, "NGUYEN VAN A");
-                const expireDate = findElementByTagAndPrefixClass("div", "input_expire_date").getElementsByClassName("form-control")[0]
-                simulateClickAndFill(expireDate, "10/18");
             } else {
-                const cardNumber = findElementByTagAndPrefixClass("div", "input_card_number").getElementsByClassName("form-control")[0]
                 simulateClickAndFill(cardNumber, "9704540000000062");
-                const ownerName = findElementByTagAndPrefixClass("div", "input_owner_name").getElementsByClassName("form-control")[0]
-                simulateClickAndFill(ownerName, "NGUYEN VAN A");
-                const expireDate = findElementByTagAndPrefixClass("div", "input_expire_date").getElementsByClassName("form-control")[0]
-                simulateClickAndFill(expireDate, "10/18");
             }
+            simulateClickAndFill(ownerName, "NGUYEN VAN A");
+            simulateClickAndFill(expireDate, "10/18");
         }
     } else {
+        const cardNumber = document.getElementsByClassName("form-group card-number")[0].getElementsByClassName("form-control")[0];
+        const ownerName = document.getElementsByClassName("form-group owner-name")[0].getElementsByClassName("form-control")[0];
+        const expireDate = document.getElementsByClassName("form-group expire-date")[0].getElementsByClassName("form-control")[0];
+
         if (document.getElementsByClassName("bank-name-logo visa-master-jcb").length > 0) {
-            const cardNumber = document.getElementsByClassName("form-group card-number")[0].getElementsByClassName("form-control")[0];
             simulateClickAndFill(cardNumber, "4111111111111111");
-            const ownerName = document.getElementsByClassName("form-group owner-name")[0].getElementsByClassName("form-control")[0];
             simulateClickAndFill(ownerName, "NGUYEN VAN A");
-            const expireDate = document.getElementsByClassName("form-group expire-date")[0].getElementsByClassName("form-control")[0];
             simulateClickAndFill(expireDate, "01/25");
             const cvv = document.getElementsByClassName("form-group cvv")[0].getElementsByClassName("form-control")[0];
             simulateClickAndFill(cvv, "123");
         } else {
             if (isSelectACBBankV1()) {
-                const cardNumber = document.getElementsByClassName("form-group card-number")[0].getElementsByClassName("form-control")[0]
                 simulateClickAndFill(cardNumber, "9704160715835353");
-                const ownerName = document.getElementsByClassName("form-group owner-name")[0].getElementsByClassName("form-control")[0]
-                simulateClickAndFill(ownerName, "NGUYEN VAN A");
-                const expireDate = document.getElementsByClassName("form-group expire-date")[0].getElementsByClassName("form-control")[0]
-                simulateClickAndFill(expireDate, "10/18");
             } else {
-                const cardNumber = document.getElementsByClassName("form-group card-number")[0].getElementsByClassName("form-control")[0]
                 simulateClickAndFill(cardNumber, "9704540000000062");
-                const ownerName = document.getElementsByClassName("form-group owner-name")[0].getElementsByClassName("form-control")[0]
-                simulateClickAndFill(ownerName, "NGUYEN VAN A");
-                const expireDate = document.getElementsByClassName("form-group expire-date")[0].getElementsByClassName("form-control")[0]
-                simulateClickAndFill(expireDate, "10/18");
             }
+            simulateClickAndFill(ownerName, "NGUYEN VAN A");
+            simulateClickAndFill(expireDate, "10/18");
         }
     }
 }
@@ -200,19 +189,4 @@ function isGWV2() {
         return true
     }
     return false
-}
-
-function findElementByTagAndPrefixClass(tag, prefixClass) {
-    const elements = document.getElementsByTagName(tag);
-    for (let i = 0; i < elements.length; i++) {
-      const element = elements[i];
-      const classNames = element.className.split(' ');
-      for (let j = 0; j < classNames.length; j++) {
-        const className = classNames[j];
-        if (className.startsWith(prefixClass)) {
-          return element;
-        }
-      }
-    }
-    return null; // Element not found
 }
