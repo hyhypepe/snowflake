@@ -25,6 +25,7 @@
         {
           "matches": [
             "https://gateway.zalopay.vn/*",
+            "https://stggateway.zalopay.vn/*",
             "https://qcgateway.zalopay.vn/*",
             "https://devgateway.zalopay.vn/*",
             "http://localhost:3000/*"
