@@ -113,6 +113,11 @@ function onAutoFillClick() {
             simulateClickAndFill(expireDate, "10/18");
         }
     } else {
+        const otpBox = document.getElementsByClassName("card-field-wrap otp-wrap")[0]
+        if (otpBox) {
+            const otp = document.getElementsByClassName("form-group otp-number")[0].getElementsByClassName("form-control")[0];    
+            simulateClickAndFill(otp, "111111")
+        }
         const cardNumber = document.getElementsByClassName("form-group card-number")[0].getElementsByClassName("form-control")[0];
         const ownerName = document.getElementsByClassName("form-group owner-name")[0].getElementsByClassName("form-control")[0];
         const expireDate = document.getElementsByClassName("form-group expire-date")[0].getElementsByClassName("form-control")[0];
