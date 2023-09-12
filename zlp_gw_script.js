@@ -43,7 +43,7 @@ function appendAutoFillBtn() {
     btn.setAttribute("id", "autofill");
     btn.style.color = "white"
     btn.style.backgroundColor = "red"
-    btn.style.width = "100%"
+    btn.style.width = "50%"
     btn.style.height = "30px"
     btn.style.fontSize = "15px"
     btn.style.fontWeight = "bold"
@@ -55,10 +55,14 @@ function appendAutoFillBtn() {
     btn2.setAttribute("id", "autofill");
     btn2.style.color = "white"
     btn2.style.backgroundColor = "red"
-    btn2.style.width = "100%"
+    btn2.style.width = "50%"
     btn2.style.height = "30px"
     btn2.style.fontSize = "15px"
     btn2.style.fontWeight = "bold"
+
+    var div = document.createElement("DIV")
+    div.appendChild(btn)
+    div.appendChild(btn2)
 
     let cardField = null
     if (isGWV2()) {
@@ -73,8 +77,7 @@ function appendAutoFillBtn() {
     if (autofill) {
         return
     }
-    cardField.prepend(btn2);
-    cardField.prepend(btn);
+    cardField.prepend(div);
 }
 
 function appendRedirectBtn(id, title, redirectFunc) {
