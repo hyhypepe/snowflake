@@ -39,7 +39,7 @@ function appendAutoFillBtn() {
     var btn = document.createElement("BUTTON")
     var t = document.createTextNode("AUTO FILL");
     btn.appendChild(t);
-    btn.addEventListener("click", onAutoFillClick);
+    btn.addEventListener("click", () => onAutoFillClick(false));
     btn.setAttribute("id", "autofill");
     btn.style.color = "white"
     btn.style.backgroundColor = "red"
@@ -47,6 +47,18 @@ function appendAutoFillBtn() {
     btn.style.height = "30px"
     btn.style.fontSize = "15px"
     btn.style.fontWeight = "bold"
+
+    var btn2 = document.createElement("BUTTON")
+    var t2 = document.createTextNode("AUTO FILL CCDB");
+    btn2.appendChild(t2);
+    btn2.addEventListener("click", () => onAutoFillClick(true));
+    btn2.setAttribute("id", "autofill");
+    btn2.style.color = "white"
+    btn2.style.backgroundColor = "red"
+    btn2.style.width = "100%"
+    btn2.style.height = "30px"
+    btn2.style.fontSize = "15px"
+    btn2.style.fontWeight = "bold"
 
     let cardField = null
     if (isGWV2()) {
@@ -61,6 +73,7 @@ function appendAutoFillBtn() {
     if (autofill) {
         return
     }
+    cardField.prepend(btn2);
     cardField.prepend(btn);
 }
 
@@ -88,17 +101,26 @@ function appendRedirectBtn(id, title, redirectFunc) {
     body.prepend(btn);
 }
 
-function onAutoFillClick() {
+function onAutoFillClick(directDebit) {
+    console.log("directDebit, ", directDebit)
     if (isGWV2()) {
         if (window.location.href.indexOf("pay/v2/cc") != -1) {
             const cardNumber = document.querySelector("[class*='input_card_number']").getElementsByClassName("form-control")[0];
             const ownerName = document.querySelector("[class*='owner-name']").getElementsByClassName("form-control")[0];
-            const expireDate = document.querySelector("[class*='expire-date']").getElementsByClassName("form-control")[0];    
-            simulateClickAndFill(cardNumber, "4111111111111111");
-            simulateClickAndFill(ownerName, "NGUYEN VAN A");
-            simulateClickAndFill(expireDate, "01/25");
-            const cvv = document.getElementsByClassName("cvv")[0].getElementsByClassName("form-control")[0];
-            simulateClickAndFill(cvv, "123");
+            if (directDebit) {
+                simulateClickAndFill(cardNumber, "4221515496486343");
+                setTimeout(() => {
+                    const ownerName = document.querySelector("[class*='owner-name']").getElementsByClassName("form-control")[0];
+                    simulateClickAndFill(ownerName, "HO THI MINH TUYET")
+                }, 1000);
+            } else {
+                const expireDate = document.querySelector("[class*='expire-date']").getElementsByClassName("form-control")[0];    
+                simulateClickAndFill(cardNumber, "4111111111111111");
+                simulateClickAndFill(ownerName, "NGUYEN VAN A");
+                simulateClickAndFill(expireDate, "01/25");
+                const cvv = document.getElementsByClassName("cvv")[0].getElementsByClassName("form-control")[0];
+                simulateClickAndFill(cvv, "123");
+            }
         } else {
             const cardNumber = document.querySelector("[class*='input_card_number']").getElementsByClassName("form-control")[0];
             const ownerName = document.querySelector("[class*='input_owner_name']").getElementsByClassName("form-control")[0];
@@ -123,11 +145,19 @@ function onAutoFillClick() {
         const expireDate = document.getElementsByClassName("form-group expire-date")[0].getElementsByClassName("form-control")[0];
 
         if (document.getElementsByClassName("bank-name-logo visa-master-jcb").length > 0) {
-            simulateClickAndFill(cardNumber, "4111111111111111");
-            simulateClickAndFill(ownerName, "NGUYEN VAN A");
-            simulateClickAndFill(expireDate, "01/25");
-            const cvv = document.getElementsByClassName("form-group cvv")[0].getElementsByClassName("form-control")[0];
-            simulateClickAndFill(cvv, "123");
+            if (directDebit) {
+                simulateClickAndFill(cardNumber, "4221515496486343");
+                setTimeout(() => {
+                    const ownerName = document.getElementsByClassName("form-group owner-name")[0].getElementsByClassName("form-control")[0];
+                    simulateClickAndFill(ownerName, "HO THI MINH TUYET")
+                }, 1000);
+            } else {
+                simulateClickAndFill(cardNumber, "4111111111111111");
+                simulateClickAndFill(ownerName, "NGUYEN VAN A");
+                simulateClickAndFill(expireDate, "01/25");
+                const cvv = document.getElementsByClassName("form-group cvv")[0].getElementsByClassName("form-control")[0];
+                simulateClickAndFill(cvv, "123");
+            }
         } else {
             if (isSelectACBBankV1()) {
                 simulateClickAndFill(cardNumber, "9704160715835353");
