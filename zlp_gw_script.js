@@ -43,7 +43,7 @@ function appendAutoFillBtn() {
     btn.setAttribute("id", "autofill");
     btn.style.color = "white"
     btn.style.backgroundColor = "red"
-    btn.style.width = "50%"
+    btn.style.width = "100%"
     btn.style.height = "30px"
     btn.style.fontSize = "15px"
     btn.style.fontWeight = "bold"
@@ -62,7 +62,11 @@ function appendAutoFillBtn() {
 
     var div = document.createElement("DIV")
     div.appendChild(btn)
-    div.appendChild(btn2)
+    if (window.location.href.indexOf("pay/v2/cc") != -1
+        || document.getElementsByClassName("bank-name-logo visa-master-jcb").length > 0) {
+        btn.style.width = "50%"
+        div.appendChild(btn2)
+    }
 
     let cardField = null
     if (isGWV2()) {
