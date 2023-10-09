@@ -1,7 +1,7 @@
 {
     "name": "Gen build tag",
     "description": "Gen build tag",
-    "version": "3.6.5",       
+    "version": "3.7.1",       
     "manifest_version": 3,
     "action": {
         "default_popup": "popup.html",
@@ -37,6 +37,12 @@
             "https://gitlab.zalopay.vn/*"
         ],
           "js": ["zlp_gitlab_script.js"]
+        },
+        {
+          "matches": [
+            "https://zlpdev-mi-zlptesttools.zalopay.vn/*"
+        ],
+          "js": ["zlp_mi_tool_helper.js"]
         }
       ]   
   }     
