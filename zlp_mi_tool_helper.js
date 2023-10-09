@@ -78,11 +78,11 @@ function getKeyClick() {
 }
 
 function genKey(env, appid) {
-    if (env == "QC Sandbox") {
-        console.log("format env: ", env)
-        env = "Sandbox"
+    if (env == "qc_sandbox") {
+        console.log("standardlize env: ", env)
+        env = "sandbox"
     }
-    const key = env + "_" + appid
+    const key = env + "||" + appid
     console.log("genKey: ", key);
     return key
 }
