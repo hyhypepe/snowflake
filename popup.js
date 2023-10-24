@@ -1,3 +1,10 @@
+import Analytics from './ga_script.js';
+
+// Fire a page view event on load
+window.addEventListener('load', () => {
+  Analytics.firePageViewEvent(document.title, document.location.href);
+});
+
 const prefixInput = document.getElementById("prefix")
 const radios = document.querySelectorAll('input[type=radio][name="env"]');
 const copyBtn = document.getElementById('copy-tag');
@@ -62,6 +69,8 @@ function copyTag() {
         console.log("Not able to copy ");
         alert("Copied failed");
     }
+
+    Analytics.fireEvent('HOME_CLICK_COPY_TAG')
 }
 
 function genDatetime() {

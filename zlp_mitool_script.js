@@ -1,82 +1,94 @@
-window.addEventListener("load", function() {
-    appendSbTagBtn()
-    appendProdTagBtn()
-})
+setInterval(() => {
+    appendSaveKeyBtn("save-key-btn", "Save key", saveKeyClick)
+    appendSaveKeyBtn("get-key-btn", "Get key", getKeyClick)
+}, 500);
 
-function appendSbTagBtn() {
+function appendSaveKeyBtn(id, title, onClick) {
+    const existingBtn = document.getElementById(id);
+    if (existingBtn) {
+        return
+    }
     var btn = document.createElement("BUTTON")
-    var t = document.createTextNode("TAG SB");
+    var t = document.createTextNode(title);
     btn.appendChild(t);
-    btn.addEventListener("click", () => {genTag("sb")});
-    btn.setAttribute("id", "tag-sb");
+    btn.addEventListener("click", onClick);
+    btn.setAttribute("id", id);
     btn.style.color = "white"
     btn.style.backgroundColor = "red"
-    btn.style.width = "300px"
+    btn.style.width = "50%"
     btn.style.height = "30px"
     btn.style.fontSize = "15px"
     btn.style.fontWeight = "bold"
-
-    const pageTitle = document.getElementsByClassName("page-title")[0];
-    if (!pageTitle) {
+    
+    let formGroups = document.getElementsByClassName("form-group")
+    if (!formGroups || formGroups.length < 5) {
         return
     }
-    const existBtn = document.getElementById("tag-sb");
-    if (existBtn) {
-        return
-    }
-    pageTitle.append(btn);
-    console.log("add tag sb done")
+    const formGroup = formGroups[4]
+    formGroup.appendChild(btn);
 }
 
-function appendProdTagBtn() {
-    var btn = document.createElement("BUTTON")
-    var t = document.createTextNode("TAG PROD");
-    btn.appendChild(t);
-    btn.addEventListener("click", () => {genTag("prod")});
-    btn.setAttribute("id", "tag-prod");
-    btn.style.color = "white"
-    btn.style.backgroundColor = "red"
-    btn.style.width = "300px"
-    btn.style.height = "30px"
-    btn.style.fontSize = "15px"
-    btn.style.fontWeight = "bold"
+function saveKeyClick() {
+    console.log("save key click");
+    new Analytics().fireEvent('MITOOL_CLICK_SAVE_KEY')
 
-    const pageTitle = document.getElementsByClassName("page-title")[0];
-    if (!pageTitle) {
+    let text = "Are you sure to save these values?";
+    if (!confirm(text)) {
         return
     }
-    const existBtn = document.getElementById("tag-prod");
-    if (existBtn) {
+    let formGroups = document.getElementsByClassName("form-group")
+    if (!formGroups || formGroups.length < 5) {
         return
     }
-    pageTitle.append(btn);
-    console.log("add tag prod done")
+    const env = formGroups[1].getElementsByClassName('form-control')[0].value
+    const appid = formGroups[3].getElementsByClassName('form-control')[0].value
+    const key1 = formGroups[4].getElementsByClassName('form-control')[0].value
+    console.log("env", env);
+    console.log("appid", appid);
+    console.log("key1", key1);
+
+    const key = genKey(env, appid)
+    let myObject = {};
+    myObject[key] = key1;
+    chrome.storage.local.set(myObject).then(() => {
+        console.log("Value is set with object", myObject);
+    });  
 }
 
-
-function genTag(env) {
-    const prefix = "v3.0.0"
-    const dateTimeStr = genDatetime()
-    value = prefix + "-" + dateTimeStr + "-" + env
-    const tagEle = document.getElementById("tag_name");
-    if (!tagEle) {
+function getKeyClick() {
+    console.log("get key click");
+    new Analytics().fireEvent('MITOOL_CLICK_GET_KEY')
+    
+    let formGroups = document.getElementsByClassName("form-group")
+    if (!formGroups || formGroups.length < 5) {
         return
     }
-    simulateClickAndFill(tagEle, value)
+    const env = formGroups[1].getElementsByClassName('form-control')[0].value
+    const appid = formGroups[3].getElementsByClassName('form-control')[0].value
+    console.log("env", env);
+    console.log("appid", appid);
 
-    new Analytics().fireEvent('GITLAB_CLICK_GEN_TAG', {env: env})
+    const key = genKey(env, appid)
+    chrome.storage.local.get(key).then((result) => {
+        const value = result[key]
+        console.log("Value currently is " + value);
+        if (!value) {
+            alert("key1 not been saved for env: " + env + ", appid: " + appid)
+            return
+        }
+        const key1Ele = formGroups[4].getElementsByClassName('form-control')[0]
+        simulateClickAndFill(key1Ele, value)
+    });
 }
 
-function genDatetime() {
-    var m = new Date();
-    var dateTimeStr =
-        m.getFullYear() +
-        ("0" + (m.getMonth() + 1)).slice(-2) +
-        ("0" + m.getDate()).slice(-2) +
-        ("0" + m.getHours()).slice(-2) +
-        ("0" + m.getMinutes()).slice(-2) +
-        ("0" + m.getSeconds()).slice(-2)
-    return dateTimeStr
+function genKey(env, appid) {
+    if (env == "qc_sandbox") {
+        console.log("standardlize env: ", env)
+        env = "sandbox"
+    }
+    const key = env + "||" + appid
+    console.log("genKey: ", key);
+    return key
 }
 
 function simulateClickAndFill(element, value) {
