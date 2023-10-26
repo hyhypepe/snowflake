@@ -113,15 +113,15 @@ function onAutoFillClick(directDebit) {
     if (isGWV2()) {
         if (window.location.href.indexOf("pay/v2/cc") != -1) {
             const cardNumber = document.querySelector("[class*='input_card_number']").getElementsByClassName("form-control")[0];
-            const ownerName = document.querySelector("[class*='owner-name']").getElementsByClassName("form-control")[0];
+            const ownerName = document.querySelector("[class*='input_owner_name']").getElementsByClassName("form-control")[0];
             if (directDebit) {
                 simulateClickAndFill(cardNumber, "4221515496486343");
                 setTimeout(() => {
-                    const ownerName = document.querySelector("[class*='owner-name']").getElementsByClassName("form-control")[0];
+                    const ownerName = document.querySelector("[class*='input_owner_name']").getElementsByClassName("form-control")[0];
                     simulateClickAndFill(ownerName, "HO THI MINH TUYET")
                 }, 1000);
             } else {
-                const expireDate = document.querySelector("[class*='expire-date']").getElementsByClassName("form-control")[0];    
+                const expireDate = document.querySelector("[class*='input_expire_date']").getElementsByClassName("form-control")[0];    
                 simulateClickAndFill(cardNumber, "4111111111111111");
                 simulateClickAndFill(ownerName, "NGUYEN VAN A");
                 simulateClickAndFill(expireDate, "01/25");
@@ -131,7 +131,7 @@ function onAutoFillClick(directDebit) {
         } else {
             const cardNumber = document.querySelector("[class*='input_card_number']").getElementsByClassName("form-control")[0];
             const ownerName = document.querySelector("[class*='input_owner_name']").getElementsByClassName("form-control")[0];
-            const expireDate = document.querySelector("[class*='input_expire_date']").getElementsByClassName("form-control")[0];
+            const expireDate = (document.querySelector("[class*='input_issue_date']") || document.querySelector("[class*='input_expire_date']")).getElementsByClassName("form-control")[0];
             
             if (isSelectACBBankV2()) {
                 simulateClickAndFill(cardNumber, "9704160715835353");
