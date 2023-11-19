@@ -363,7 +363,10 @@ class Analytics {
   }
 }
 
-window.addEventListener("load", function() {
+window.addEventListener("load", async function() {
+  if (!await isEnableDebugGateway()) {
+    return;
+  }
   function createSnowflake() {
       const snowflake = document.createElement('div');
       snowflake.innerHTML = '&#10052;'; // Sử dụng mã HTML cho biểu tượng tuyết
