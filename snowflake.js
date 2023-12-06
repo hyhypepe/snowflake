@@ -1,10 +1,8 @@
 window.addEventListener("load", function() {
     async function createSnowflake() {
         if (!await isEnableSnowflake()) {
-            console.log("disable");
             return
         }
-        console.log("enable");
         const snowflake = document.createElement('div');
         snowflake.innerHTML = '&#10052;'; // Sử dụng mã HTML cho biểu tượng tuyết
         snowflake.style.position = 'fixed'; // Thay đổi ở đây
